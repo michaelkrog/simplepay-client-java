@@ -6,6 +6,7 @@ package dk.apaq.simplepay.client.model;
  */
 public class Transaction  {
 
+    private String id;
     private long amount;
     private long amountCharged;
     private long amountRefunded;
@@ -17,6 +18,14 @@ public class Transaction  {
     private String token;
     private String status;
     private String gatewayTransactionId;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     
     public String getGatewayTransactionId() {
         return gatewayTransactionId;

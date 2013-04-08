@@ -18,7 +18,7 @@ public class Token {
     private boolean expired = false;
     private boolean test = false;
     
-    private Map tokenData;
+    private Map data;
     
     public String getId() {
         return id;
@@ -69,11 +69,11 @@ public class Token {
     }
 
     public Map getData() {
-        return tokenData;
+        return data;
     }
 
-    public void setData(Map tokenData) {
-        this.tokenData = tokenData;
+    public void setData(Map data) {
+        this.data = data;
     }
     
     

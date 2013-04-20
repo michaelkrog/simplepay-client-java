@@ -88,7 +88,18 @@ public class SimplePaySession {
     }
 
     public Transaction createTransaction(String tokenId, String refId, Money amount) {
-        return null;
+        HttpPost method = new HttpPost(serviceUrl + "/transactions");
+        method.addHeader("Accept", "application/json");
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+        nvps.add(new BasicNameValuePair("token", tokenId));
+        nvps.add(new BasicNameValuePair("refId", refId));
+        nvps.add(new BasicNameValuePair("amount", amount.getAmountMinorLong()));
+        nvps.add(new BasicNameValuePair("currency", amount.getCurrencyUnit().getCurrencyCode()));
+        method.setEntity(new UrlEncodedFormEntity(nvps));
+        HttpResponse response = client.execute(method);
+
+        JsonReader reader = new JsonReader(new InputStreamReader(response.getEntity().getContent()));
+        return gson.fromJson(reader, Transaction.class);
     }
 
     public Transaction getTransaction(String id) {

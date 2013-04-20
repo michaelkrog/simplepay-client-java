@@ -87,13 +87,13 @@ public class SimplePaySession {
         return gson.fromJson(reader, Token.class);
     }
 
-    public Transaction createTransaction(String tokenId, String refId, Money amount) {
+    public Transaction createTransaction(String tokenId, String refId, Money amount) throws IOException {
         HttpPost method = new HttpPost(serviceUrl + "/transactions");
         method.addHeader("Accept", "application/json");
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         nvps.add(new BasicNameValuePair("token", tokenId));
         nvps.add(new BasicNameValuePair("refId", refId));
-        nvps.add(new BasicNameValuePair("amount", amount.getAmountMinorLong()));
+        nvps.add(new BasicNameValuePair("amount", Long.toString(amount.getAmountMinorLong())));
         nvps.add(new BasicNameValuePair("currency", amount.getCurrencyUnit().getCurrencyCode()));
         method.setEntity(new UrlEncodedFormEntity(nvps));
         HttpResponse response = client.execute(method);
